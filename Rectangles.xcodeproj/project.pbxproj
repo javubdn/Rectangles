@@ -13,6 +13,7 @@
 		BCC85F352611B9930085B621 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCC85F332611B9930085B621 /* Main.storyboard */; };
 		BCC85F372611B9950085B621 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCC85F362611B9950085B621 /* Assets.xcassets */; };
 		BCC85F3A2611B9950085B621 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCC85F382611B9950085B621 /* LaunchScreen.storyboard */; };
+		BCC85F4726130A2E0085B621 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC85F4626130A2E0085B621 /* RectangleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		BCC85F362611B9950085B621 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCC85F392611B9950085B621 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCC85F3B2611B9950085B621 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCC85F4626130A2E0085B621 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		BCC85F2C2611B9930085B621 /* Rectangles */ = {
 			isa = PBXGroup;
 			children = (
+				BCC85F4526130A210085B621 /* View */,
 				BCC85F2D2611B9930085B621 /* AppDelegate.swift */,
 				BCC85F2F2611B9930085B621 /* SceneDelegate.swift */,
 				BCC85F312611B9930085B621 /* ViewController.swift */,
@@ -65,6 +68,14 @@
 				BCC85F3B2611B9950085B621 /* Info.plist */,
 			);
 			path = Rectangles;
+			sourceTree = "<group>";
+		};
+		BCC85F4526130A210085B621 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BCC85F4626130A2E0085B621 /* RectangleView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +150,7 @@
 			files = (
 				BCC85F322611B9930085B621 /* ViewController.swift in Sources */,
 				BCC85F2E2611B9930085B621 /* AppDelegate.swift in Sources */,
+				BCC85F4726130A2E0085B621 /* RectangleView.swift in Sources */,
 				BCC85F302611B9930085B621 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

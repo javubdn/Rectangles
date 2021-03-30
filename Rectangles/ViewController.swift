@@ -11,9 +11,27 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        prepareView()
     }
 
+    private func prepareView() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(simpleTap))
+        view.addGestureRecognizer(tap)
+    }
+
+    //MARK: - Actions
+
+    @objc
+    private func simpleTap(recognizer: UITapGestureRecognizer) {
+        //Creation rectangle
+        let newRectangle = RectangleView()
+        newRectangle.setLocation(recognizer.location(in: view))
+//        newRectangle.delegate = self;
+//        [self.view addSubview:newRectangle];
+
+        //Remove HueSelector
+//        [self removeCurrentHueSelector];
+    }
 
 }
 
