@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    private var hueSelector: HueSelector?
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
@@ -19,6 +20,17 @@ class ViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
 
+    //MARK: - Helpers
+
+    private func removeCurrentHueSelector() {
+        guard hueSelector != nil else {
+            return
+        }
+        hueSelector?.removeFromSuperview()
+        hueSelector = nil
+    }
+
+
     //MARK: - Actions
 
     @objc
@@ -26,12 +38,19 @@ class ViewController: UIViewController {
         //Creation rectangle
         let newRectangle = RectangleView()
         newRectangle.setLocation(recognizer.location(in: view))
-//        newRectangle.delegate = self;
-//        [self.view addSubview:newRectangle];
+        newRectangle.delegate = self
+        view.addSubview(newRectangle)
 
         //Remove HueSelector
-//        [self removeCurrentHueSelector];
+        removeCurrentHueSelector()
     }
 
 }
 
+extension ViewController: RectangleDelegate {
+
+    func createHueSelector(for rectangle: RectangleView) {
+
+    }
+
+}

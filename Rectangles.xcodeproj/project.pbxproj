@@ -14,6 +14,7 @@
 		BCC85F372611B9950085B621 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCC85F362611B9950085B621 /* Assets.xcassets */; };
 		BCC85F3A2611B9950085B621 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCC85F382611B9950085B621 /* LaunchScreen.storyboard */; };
 		BCC85F4726130A2E0085B621 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC85F4626130A2E0085B621 /* RectangleView.swift */; };
+		BCC85F4A261455320085B621 /* HueSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC85F49261455320085B621 /* HueSelector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		BCC85F392611B9950085B621 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCC85F3B2611B9950085B621 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCC85F4626130A2E0085B621 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
+		BCC85F49261455320085B621 /* HueSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HueSelector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				BCC85F4626130A2E0085B621 /* RectangleView.swift */,
+				BCC85F49261455320085B621 /* HueSelector.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCC85F4A261455320085B621 /* HueSelector.swift in Sources */,
 				BCC85F322611B9930085B621 /* ViewController.swift in Sources */,
 				BCC85F2E2611B9930085B621 /* AppDelegate.swift in Sources */,
 				BCC85F4726130A2E0085B621 /* RectangleView.swift in Sources */,

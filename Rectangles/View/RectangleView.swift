@@ -7,7 +7,15 @@
 
 import UIKit
 
+protocol RectangleDelegate {
+
+    func createHueSelector(for rectangle: RectangleView)
+
+}
+
 class RectangleView: UIView {
+
+    var delegate: RectangleDelegate?
 
     private var originalPosition: CGPoint?
 
