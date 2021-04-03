@@ -58,11 +58,11 @@ class RectangleView: UIView {
         let MAXSize: CGFloat = 150
         let MINSize: CGFloat = 30
         let diff = MAXSize - MINSize
-        let newWidth = CGFloat((arc4random() / UINT32_MAX)) * diff + MINSize
-        let newHeight = CGFloat((arc4random() / UINT32_MAX)) * diff + MINSize
+        let newWidth = CGFloat(arc4random()) / CGFloat(UINT32_MAX) * diff + MINSize
+        let newHeight = CGFloat(arc4random()) / CGFloat(UINT32_MAX) * diff + MINSize
         let newX = location.x - newWidth/2
         let newY = location.y - newHeight/2
-        frame = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
+        self.frame = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
     }
 
     private func randomColor() -> UIColor {
