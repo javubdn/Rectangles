@@ -45,7 +45,8 @@ class RectangleView: UIView {
 
     @objc
     private func simpleTapDone(recognizer: UITapGestureRecognizer) {
-
+        superview?.bringSubviewToFront(self)
+        delegate?.createHueSelector(for: self)
     }
 
     @objc
