@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     private var hueSelector: HueSelector?
+    private var selectedRectangle: RectangleView?
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
@@ -50,7 +51,17 @@ class ViewController: UIViewController {
 extension ViewController: RectangleDelegate {
 
     func createHueSelector(for rectangle: RectangleView) {
-
+        selectedRectangle = rectangle
+        let currentColor = rectangle.backgroundColor
+        var hue: CGFloat = 0
+        var saturation: CGFloat = 0
+        var brightness: CGFloat = 0
+        var alpha: CGFloat = 0
+        currentColor?.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+        removeCurrentHueSelector()
+        hueSelector = HueSelector(hue: hue, position: CGPoint(x: 10, y: 10))
+//        hueSelector.delegate = self
+        view.addSubview(hueSelector!)
     }
 
 }
