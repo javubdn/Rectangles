@@ -7,11 +7,18 @@
 
 import UIKit
 
+protocol HueDelegate {
+
+    func hueChanged(_ newHue: Float)
+
+}
+
 class HueSelector: UIView {
     private var slider: UISlider?
-    private var hue: CGFloat?
+    private var hue: Float?
+    var delegate: HueDelegate?
 
-    convenience init(hue: CGFloat?, position: CGPoint) {
+    convenience init(hue: Float?, position: CGPoint) {
         self.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         self.hue = hue
         prepareHueSelector(with: position)
@@ -32,17 +39,24 @@ class HueSelector: UIView {
     }
 
     private func prepareHueSelector(with position: CGPoint) {
-        let width: CFloat = 150
-        let height: CFloat = 80
-        self.frame = CGRect(x: 9, y: 9, width: 9, height: 9)
-//        frame = CGRect(x: position.x, y: position.y, width: width, height: height)
+        let width = 150
+        let height = 80
+        self.frame = CGRect(x: Int(position.x - CGFloat(width/2)), y: Int(position.y - CGFloat(height/2)), width: width, height: height)
         backgroundColor = .white
 
         //Create slider
-        slider = UISlider(frame: CGRect(x: 10, y: 10, width: Int(width)-20, height: Int(height)-20))
+        slider = UISlider(frame: CGRect(x: 10, y: 10, width: width-20, height: height-20))
         slider?.value = Float(hue!)
+        slider?.addTarget(self, action:#selector(sliderValueChanged), for: .valueChanged)
+
         addSubview(slider!)
 
+    }
+
+    @objc
+    private func sliderValueChanged() {
+        hue = slider?.value
+        delegate?.hueChanged(hue!)
     }
 
 }

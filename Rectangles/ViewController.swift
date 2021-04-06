@@ -59,9 +59,17 @@ extension ViewController: RectangleDelegate {
         var alpha: CGFloat = 0
         currentColor?.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
         removeCurrentHueSelector()
-        hueSelector = HueSelector(hue: hue, position: CGPoint(x: 10, y: 10))
-//        hueSelector.delegate = self
+        hueSelector = HueSelector(hue: Float(hue), position: view.center)
+        hueSelector?.delegate = self
         view.addSubview(hueSelector!)
+    }
+
+}
+
+extension ViewController: HueDelegate {
+
+    func hueChanged(_ newHue: Float) {
+        selectedRectangle?.setHue(newHue)
     }
 
 }

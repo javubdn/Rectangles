@@ -71,4 +71,10 @@ class RectangleView: UIView {
         return UIColor(hue: hue, saturation: 1, brightness: 1, alpha: 0.75)
     }
 
+    //MARK: - Public methods
+
+    func setHue(_ hue: Float) {
+        backgroundColor = UIColor(hue: CGFloat(hue), saturation: 1, brightness: 1, alpha: 0.75)
+    }
+
 }
