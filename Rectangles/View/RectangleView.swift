@@ -71,6 +71,20 @@ class RectangleView: UIView {
         return UIColor(hue: hue, saturation: 1, brightness: 1, alpha: 0.75)
     }
 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        originalPosition = center
+    }
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else {
+            return
+        }
+        let position = touch.location(in: superview)
+        UIView.animate(withDuration: 0.001) {
+            self.center = CGPoint(x: position.x, y: position.y)
+        }
+    }
+
     //MARK: - Public methods
 
     func setHue(_ hue: Float) {
