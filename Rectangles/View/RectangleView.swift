@@ -30,6 +30,7 @@ class RectangleView: UIView {
     }
 
     private func prepareRectangle() {
+        layer.cornerRadius = 10
         backgroundColor = randomColor()
 
         //Add actions
