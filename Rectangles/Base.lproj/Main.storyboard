@@ -15,9 +15,34 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="810" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j7L-ee-DCe" userLabel="mainView">
+                                <rect key="frame" x="0.0" y="0.0" width="810" height="864"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fPI-Lz-4nN" userLabel="controlView">
+                                <rect key="frame" x="0.0" y="864" width="810" height="216"/>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fPI-Lz-4nN" secondAttribute="trailing" id="7nV-rw-3Yt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fPI-Lz-4nN" secondAttribute="bottom" id="DPm-N5-dCT"/>
+                            <constraint firstItem="fPI-Lz-4nN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="FmW-sQ-avs"/>
+                            <constraint firstItem="j7L-ee-DCe" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.8" id="Wjx-wb-K4t"/>
+                            <constraint firstItem="j7L-ee-DCe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="X5j-ya-NLI"/>
+                            <constraint firstItem="fPI-Lz-4nN" firstAttribute="top" secondItem="j7L-ee-DCe" secondAttribute="bottom" id="amq-IO-fMF"/>
+                            <constraint firstItem="fPI-Lz-4nN" firstAttribute="top" secondItem="j7L-ee-DCe" secondAttribute="bottom" id="fXy-u4-GPw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="j7L-ee-DCe" secondAttribute="trailing" id="j6Y-I4-j28"/>
+                            <constraint firstItem="j7L-ee-DCe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qvv-kF-ogc"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="controlView" destination="fPI-Lz-4nN" id="B7x-CE-Fj1"/>
+                        <outlet property="mainView" destination="j7L-ee-DCe" id="P9M-qg-Z4f"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -27,6 +52,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

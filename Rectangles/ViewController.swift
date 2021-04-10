@@ -11,6 +11,10 @@ class ViewController: UIViewController {
 
     private var hueSelector: HueSelector?
     private var selectedRectangle: RectangleView?
+
+    @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var controlView: UIView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
@@ -18,7 +22,7 @@ class ViewController: UIViewController {
 
     private func prepareView() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(simpleTap))
-        view.addGestureRecognizer(tap)
+        mainView.addGestureRecognizer(tap)
     }
 
     //MARK: - Helpers
@@ -59,9 +63,10 @@ extension ViewController: RectangleDelegate {
         var alpha: CGFloat = 0
         currentColor?.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
         removeCurrentHueSelector()
-        hueSelector = HueSelector(hue: Float(hue), position: view.center)
+        let center = CGPoint(x: controlView.center.x, y: controlView.frame.height/2)
+        hueSelector = HueSelector(hue: Float(hue), position: center)
         hueSelector?.delegate = self
-        view.addSubview(hueSelector!)
+        controlView.addSubview(hueSelector!)
     }
 
 }

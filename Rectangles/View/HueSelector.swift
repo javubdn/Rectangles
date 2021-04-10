@@ -14,7 +14,7 @@ protocol HueDelegate {
 }
 
 class HueSelector: UIView {
-    private var slider: UISlider?
+    private var slider: CustomSlider?
     private var hue: Float?
     var delegate: HueDelegate?
 
@@ -40,12 +40,12 @@ class HueSelector: UIView {
 
     private func prepareHueSelector(with position: CGPoint) {
         let width = 150
-        let height = 80
+        let height = 60
         self.frame = CGRect(x: Int(position.x - CGFloat(width/2)), y: Int(position.y - CGFloat(height/2)), width: width, height: height)
         backgroundColor = .white
 
         //Create slider
-        slider = UISlider(frame: CGRect(x: 10, y: 10, width: width-20, height: height-20))
+        slider = CustomSlider(frame: CGRect(x: 20, y: 20, width: width-40, height: height-40))
         slider?.value = Float(hue!)
         slider?.addTarget(self, action:#selector(sliderValueChanged), for: .valueChanged)
 

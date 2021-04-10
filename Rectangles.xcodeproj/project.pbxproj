@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BCA15FF8262058B400F77F66 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA15FF7262058B400F77F66 /* CustomSlider.swift */; };
 		BCC85F2E2611B9930085B621 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC85F2D2611B9930085B621 /* AppDelegate.swift */; };
 		BCC85F302611B9930085B621 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC85F2F2611B9930085B621 /* SceneDelegate.swift */; };
 		BCC85F322611B9930085B621 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC85F312611B9930085B621 /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BCA15FF7262058B400F77F66 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		BCC85F2A2611B9930085B621 /* Rectangles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rectangles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCC85F2D2611B9930085B621 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCC85F2F2611B9930085B621 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			children = (
 				BCC85F4626130A2E0085B621 /* RectangleView.swift */,
 				BCC85F49261455320085B621 /* HueSelector.swift */,
+				BCA15FF7262058B400F77F66 /* CustomSlider.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCC85F4A261455320085B621 /* HueSelector.swift in Sources */,
+				BCA15FF8262058B400F77F66 /* CustomSlider.swift in Sources */,
 				BCC85F322611B9930085B621 /* ViewController.swift in Sources */,
 				BCC85F2E2611B9930085B621 /* AppDelegate.swift in Sources */,
 				BCC85F4726130A2E0085B621 /* RectangleView.swift in Sources */,
