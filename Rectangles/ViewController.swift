@@ -14,6 +14,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var controlView: UIView!
+    @IBOutlet weak var hueSlider: UISlider!
+    @IBOutlet weak var cornerRadiusSlider: UISlider!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,9 +52,27 @@ class ViewController: UIViewController {
         removeCurrentHueSelector()
     }
 
+    @IBAction func hueSliderChanged(_ sender: UISlider) {
+        selectedRectangle?.setHue(sender.value)
+    }
+
+    @IBAction func cornerRadiusSliderChanged(_ sender: UISlider) {
+
+    }
 }
 
 extension ViewController: RectangleDelegate {
+
+    func rectangleSelected(_ rectangle: RectangleView) {
+        selectedRectangle = rectangle
+        let currentColor = rectangle.backgroundColor
+        var hue: CGFloat = 0
+        var saturation: CGFloat = 0
+        var brightness: CGFloat = 0
+        var alpha: CGFloat = 0
+        currentColor?.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+        hueSlider.value = Float(hue)
+    }
 
     func createHueSelector(for rectangle: RectangleView) {
         selectedRectangle = rectangle

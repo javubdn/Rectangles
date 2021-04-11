@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="ipad10_2" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,16 +13,101 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Rectangles" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="810" height="1080"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j7L-ee-DCe" userLabel="mainView">
-                                <rect key="frame" x="0.0" y="0.0" width="810" height="864"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="717"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fPI-Lz-4nN" userLabel="controlView">
-                                <rect key="frame" x="0.0" y="864" width="810" height="216"/>
+                                <rect key="frame" x="0.0" y="761" width="414" height="101"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="meH-UH-1GM">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="101"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vUc-oA-Bpt" userLabel="contentView">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="220"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Icp-T0-bOv">
+                                                        <rect key="frame" x="20" y="0.0" width="374" height="220"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="LUb-eJ-g6S">
+                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="110"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hue" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="et1-Gn-dDJ" userLabel="hueLabel">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="187" height="110"/>
+                                                                        <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="30"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="tTa-57-sjy" userLabel="hueSlider">
+                                                                        <rect key="frame" x="185" y="0.0" width="191" height="111"/>
+                                                                        <connections>
+                                                                            <action selector="hueSliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="ZOq-1S-BFp"/>
+                                                                        </connections>
+                                                                    </slider>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="110" id="PwQ-lZ-pkP"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ixy-Gd-BcK">
+                                                                <rect key="frame" x="0.0" y="110" width="374" height="110"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Corner radius" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f1g-dB-0mL" userLabel="cornerRadiusLabel">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="187" height="110"/>
+                                                                        <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="30"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="DhH-5L-uE7" userLabel="cornerRadiusSlider">
+                                                                        <rect key="frame" x="185" y="0.0" width="191" height="111"/>
+                                                                        <connections>
+                                                                            <action selector="cornerRadiusSliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="kJa-do-dHm"/>
+                                                                        </connections>
+                                                                    </slider>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="110" id="19F-YS-r1X"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="ixy-Gd-BcK" firstAttribute="top" secondItem="LUb-eJ-g6S" secondAttribute="bottom" id="ARg-LJ-2Wh"/>
+                                                            <constraint firstItem="ixy-Gd-BcK" firstAttribute="leading" secondItem="Icp-T0-bOv" secondAttribute="leading" id="LmI-7q-e5K"/>
+                                                            <constraint firstAttribute="trailing" secondItem="LUb-eJ-g6S" secondAttribute="trailing" id="S6C-YN-AL3"/>
+                                                            <constraint firstItem="LUb-eJ-g6S" firstAttribute="leading" secondItem="Icp-T0-bOv" secondAttribute="leading" id="ZNS-Ug-BsW"/>
+                                                            <constraint firstItem="LUb-eJ-g6S" firstAttribute="top" secondItem="Icp-T0-bOv" secondAttribute="top" id="hvS-Kp-crq"/>
+                                                            <constraint firstAttribute="trailing" secondItem="ixy-Gd-BcK" secondAttribute="trailing" id="u0T-Ny-gxk"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="Icp-T0-bOv" secondAttribute="trailing" constant="20" id="BEe-HK-fAQ"/>
+                                                    <constraint firstItem="Icp-T0-bOv" firstAttribute="leading" secondItem="vUc-oA-Bpt" secondAttribute="leading" constant="20" id="CQq-u9-STe"/>
+                                                    <constraint firstItem="Icp-T0-bOv" firstAttribute="top" secondItem="vUc-oA-Bpt" secondAttribute="top" id="rJf-Vi-Urn"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Icp-T0-bOv" secondAttribute="bottom" id="zWJ-ct-uXY"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="vUc-oA-Bpt" secondAttribute="bottom" id="pag-Vk-1ZJ"/>
+                                            <constraint firstItem="vUc-oA-Bpt" firstAttribute="top" secondItem="meH-UH-1GM" secondAttribute="top" id="q0l-FV-Mgt"/>
+                                            <constraint firstAttribute="trailing" secondItem="vUc-oA-Bpt" secondAttribute="trailing" id="z7a-fO-3Hd"/>
+                                            <constraint firstItem="vUc-oA-Bpt" firstAttribute="leading" secondItem="meH-UH-1GM" secondAttribute="leading" id="zxZ-wL-z7S"/>
+                                        </constraints>
+                                    </scrollView>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                <constraints>
+                                    <constraint firstItem="meH-UH-1GM" firstAttribute="leading" secondItem="fPI-Lz-4nN" secondAttribute="leading" id="2qy-tW-1Nv"/>
+                                    <constraint firstItem="vUc-oA-Bpt" firstAttribute="width" secondItem="fPI-Lz-4nN" secondAttribute="width" id="Tr8-6M-iGm"/>
+                                    <constraint firstAttribute="bottom" secondItem="meH-UH-1GM" secondAttribute="bottom" id="bqP-hF-gXC"/>
+                                    <constraint firstItem="meH-UH-1GM" firstAttribute="top" secondItem="fPI-Lz-4nN" secondAttribute="top" id="vvv-KT-XJa"/>
+                                    <constraint firstAttribute="trailing" secondItem="meH-UH-1GM" secondAttribute="trailing" id="you-I5-opU"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -41,6 +126,8 @@
                     </view>
                     <connections>
                         <outlet property="controlView" destination="fPI-Lz-4nN" id="B7x-CE-Fj1"/>
+                        <outlet property="cornerRadiusSlider" destination="DhH-5L-uE7" id="Keg-qW-epb"/>
+                        <outlet property="hueSlider" destination="tTa-57-sjy" id="Oas-hB-lAh"/>
                         <outlet property="mainView" destination="j7L-ee-DCe" id="P9M-qg-Z4f"/>
                     </connections>
                 </viewController>
