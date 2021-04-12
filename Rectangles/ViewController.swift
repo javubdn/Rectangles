@@ -57,7 +57,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func cornerRadiusSliderChanged(_ sender: UISlider) {
-
+        selectedRectangle?.setCornerRadius(sender.value)
     }
 }
 
@@ -72,6 +72,11 @@ extension ViewController: RectangleDelegate {
         var alpha: CGFloat = 0
         currentColor?.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
         hueSlider.value = Float(hue)
+        if let selectedRectangle = selectedRectangle {
+            let cornerRadius: CGFloat = selectedRectangle.layer.cornerRadius
+            let minimum = min(selectedRectangle.frame.width, selectedRectangle.frame.height)
+            cornerRadiusSlider.value = Float(cornerRadius / (minimum / 2))
+        }
     }
 
     func createHueSelector(for rectangle: RectangleView) {

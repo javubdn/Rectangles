@@ -94,4 +94,10 @@ class RectangleView: UIView {
         backgroundColor = UIColor(hue: CGFloat(hue), saturation: 1, brightness: 1, alpha: 0.75)
     }
 
+    func setCornerRadius(_ cornerRadius: Float) {
+        let minimum = min(frame.width, frame.height)
+        let radius = CGFloat(cornerRadius) * (minimum / 2)
+        layer.cornerRadius = CGFloat(radius)
+    }
+
 }
