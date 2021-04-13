@@ -9,7 +9,6 @@ import UIKit
 
 protocol RectangleDelegate {
 
-    func createHueSelector(for rectangle: RectangleView)
     func rectangleSelected(_ rectangle: RectangleView)
 
 }
@@ -48,7 +47,6 @@ class RectangleView: UIView {
     @objc
     private func simpleTapDone(recognizer: UITapGestureRecognizer) {
         superview?.bringSubviewToFront(self)
-//        delegate?.createHueSelector(for: self)
         delegate?.rectangleSelected(self)
     }
 

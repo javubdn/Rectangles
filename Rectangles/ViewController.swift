@@ -9,7 +9,6 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    private var hueSelector: HueSelector?
     private var selectedRectangle: RectangleView?
 
     @IBOutlet weak var mainView: UIView!
@@ -27,17 +26,6 @@ class ViewController: UIViewController {
         mainView.addGestureRecognizer(tap)
     }
 
-    //MARK: - Helpers
-
-    private func removeCurrentHueSelector() {
-        guard hueSelector != nil else {
-            return
-        }
-        hueSelector?.removeFromSuperview()
-        hueSelector = nil
-    }
-
-
     //MARK: - Actions
 
     @objc
@@ -47,9 +35,6 @@ class ViewController: UIViewController {
         newRectangle.setLocation(recognizer.location(in: view))
         newRectangle.delegate = self
         view.addSubview(newRectangle)
-
-        //Remove HueSelector
-        removeCurrentHueSelector()
     }
 
     @IBAction func hueSliderChanged(_ sender: UISlider) {
@@ -77,29 +62,6 @@ extension ViewController: RectangleDelegate {
             let minimum = min(selectedRectangle.frame.width, selectedRectangle.frame.height)
             cornerRadiusSlider.value = Float(cornerRadius / (minimum / 2))
         }
-    }
-
-    func createHueSelector(for rectangle: RectangleView) {
-        selectedRectangle = rectangle
-        let currentColor = rectangle.backgroundColor
-        var hue: CGFloat = 0
-        var saturation: CGFloat = 0
-        var brightness: CGFloat = 0
-        var alpha: CGFloat = 0
-        currentColor?.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
-        removeCurrentHueSelector()
-        let center = CGPoint(x: controlView.center.x, y: controlView.frame.height/2)
-        hueSelector = HueSelector(hue: Float(hue), position: center)
-        hueSelector?.delegate = self
-        controlView.addSubview(hueSelector!)
-    }
-
-}
-
-extension ViewController: HueDelegate {
-
-    func hueChanged(_ newHue: Float) {
-        selectedRectangle?.setHue(newHue)
     }
 
 }
