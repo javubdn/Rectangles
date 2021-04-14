@@ -35,6 +35,7 @@ class ViewController: UIViewController {
         newRectangle.setLocation(recognizer.location(in: view))
         newRectangle.delegate = self
         view.addSubview(newRectangle)
+        rectangleSelected(newRectangle)
     }
 
     @IBAction func hueSliderChanged(_ sender: UISlider) {
