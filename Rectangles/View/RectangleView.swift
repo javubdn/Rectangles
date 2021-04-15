@@ -13,11 +13,17 @@ protocol RectangleDelegate {
 
 }
 
+enum Action {
+    case duplicate
+    case rotate
+}
+
 class RectangleView: UIView {
 
     var delegate: RectangleDelegate?
 
     private var originalPosition: CGPoint?
+    var action: Action = .duplicate
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,19 +58,13 @@ class RectangleView: UIView {
 
     @objc
     private func doubleTapDone(recognizer: UITapGestureRecognizer) {
+        switch action {
+        case .rotate:
+            frame = CGRect(x: frame.minX, y: frame.minY, width: frame.height, height: frame.width)
+        case .duplicate:
+            frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width * 2, height: frame.height * 2)
+        }
 
-    }
-
-    func setLocation(_ location: CGPoint) {
-        originalPosition = location
-        let MAXSize: CGFloat = 150
-        let MINSize: CGFloat = 30
-        let diff = MAXSize - MINSize
-        let newWidth = CGFloat(arc4random()) / CGFloat(UINT32_MAX) * diff + MINSize
-        let newHeight = CGFloat(arc4random()) / CGFloat(UINT32_MAX) * diff + MINSize
-        let newX = location.x - newWidth/2
-        let newY = location.y - newHeight/2
-        self.frame = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
     }
 
     private func randomColor() -> UIColor {
@@ -96,6 +96,22 @@ class RectangleView: UIView {
         let minimum = min(frame.width, frame.height)
         let radius = CGFloat(cornerRadius) * (minimum / 2)
         layer.cornerRadius = CGFloat(radius)
+    }
+
+    func setLocation(_ location: CGPoint) {
+        originalPosition = location
+        let MAXSize: CGFloat = 150
+        let MINSize: CGFloat = 30
+        let diff = MAXSize - MINSize
+        let newWidth = CGFloat(arc4random()) / CGFloat(UINT32_MAX) * diff + MINSize
+        let newHeight = CGFloat(arc4random()) / CGFloat(UINT32_MAX) * diff + MINSize
+        let newX = location.x - newWidth/2
+        let newY = location.y - newHeight/2
+        self.frame = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
+    }
+
+    func setAction(_ action: Action) {
+        self.action = action
     }
 
 }

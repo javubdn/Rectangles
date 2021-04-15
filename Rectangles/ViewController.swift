@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var controlView: UIView!
     @IBOutlet weak var hueSlider: UISlider!
     @IBOutlet weak var cornerRadiusSlider: UISlider!
+    @IBOutlet weak var optionDCView: ItemSelector!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,8 @@ class ViewController: UIViewController {
     private func prepareView() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(simpleTap))
         mainView.addGestureRecognizer(tap)
+        optionDCView.listItems = ["Duplicate", "Invert"]
+        optionDCView.delegate = self
     }
 
     //MARK: - Actions
@@ -62,7 +65,26 @@ extension ViewController: RectangleDelegate {
             let cornerRadius: CGFloat = selectedRectangle.layer.cornerRadius
             let minimum = min(selectedRectangle.frame.width, selectedRectangle.frame.height)
             cornerRadiusSlider.value = Float(cornerRadius / (minimum / 2))
+            switch selectedRectangle.action {
+            case .duplicate:
+                optionDCView.currentIndex = 0
+            case .rotate:
+                optionDCView.currentIndex = 1
+            }
         }
+    }
+
+}
+
+extension ViewController: ItemSelectorDelegate {
+
+    func valueChanged(_ selector: ItemSelector) {
+        if selector.currentIndex == 0 {
+            selectedRectangle?.setAction(.duplicate)
+        } else if selector.currentIndex == 1 {
+            selectedRectangle?.setAction(.rotate)
+        }
+
     }
 
 }

@@ -27,10 +27,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="101"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vUc-oA-Bpt" userLabel="contentView">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="220"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="330"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Icp-T0-bOv">
-                                                        <rect key="frame" x="20" y="0.0" width="374" height="220"/>
+                                                        <rect key="frame" x="20" y="0.0" width="374" height="330"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="LUb-eJ-g6S">
                                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="110"/>
@@ -70,6 +70,28 @@
                                                                 </subviews>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="110" id="19F-YS-r1X"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="D2i-50-Mp1">
+                                                                <rect key="frame" x="0.0" y="220" width="374" height="110"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option double click" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vEO-So-Xpg" userLabel="optionDCLabel">
+                                                                        <rect key="frame" x="0.0" y="4" width="187" height="102"/>
+                                                                        <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="30"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ovt-HL-gTD" userLabel="optionDCView" customClass="ItemSelector" customModule="Rectangles" customModuleProvider="target">
+                                                                        <rect key="frame" x="187" y="25" width="187" height="60"/>
+                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="60" id="azd-gF-leG"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="Ovt-HL-gTD" firstAttribute="centerY" secondItem="D2i-50-Mp1" secondAttribute="centerY" id="Dg0-U3-uMp"/>
+                                                                    <constraint firstAttribute="height" constant="110" id="hbE-um-fQl"/>
                                                                 </constraints>
                                                             </stackView>
                                                         </subviews>
@@ -129,6 +151,7 @@
                         <outlet property="cornerRadiusSlider" destination="DhH-5L-uE7" id="Keg-qW-epb"/>
                         <outlet property="hueSlider" destination="tTa-57-sjy" id="Oas-hB-lAh"/>
                         <outlet property="mainView" destination="j7L-ee-DCe" id="P9M-qg-Z4f"/>
+                        <outlet property="optionDCView" destination="Ovt-HL-gTD" id="B6Z-Ql-7GC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BCA15FF8262058B400F77F66 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA15FF7262058B400F77F66 /* CustomSlider.swift */; };
+		BCA15FFF2626CF1400F77F66 /* ItemSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA15FFE2626CF1400F77F66 /* ItemSelector.swift */; };
 		BCC85F2E2611B9930085B621 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC85F2D2611B9930085B621 /* AppDelegate.swift */; };
 		BCC85F302611B9930085B621 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC85F2F2611B9930085B621 /* SceneDelegate.swift */; };
 		BCC85F322611B9930085B621 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC85F312611B9930085B621 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		BCA15FF7262058B400F77F66 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
+		BCA15FFE2626CF1400F77F66 /* ItemSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSelector.swift; sourceTree = "<group>"; };
 		BCC85F2A2611B9930085B621 /* Rectangles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rectangles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCC85F2D2611B9930085B621 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCC85F2F2611B9930085B621 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +43,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BCA15FFD2626CF0700F77F66 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BCA15FFE2626CF1400F77F66 /* ItemSelector.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		BCC85F212611B9930085B621 = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +70,7 @@
 		BCC85F2C2611B9930085B621 /* Rectangles */ = {
 			isa = PBXGroup;
 			children = (
+				BCA15FFD2626CF0700F77F66 /* Utils */,
 				BCC85F4526130A210085B621 /* View */,
 				BCC85F2D2611B9930085B621 /* AppDelegate.swift */,
 				BCC85F2F2611B9930085B621 /* SceneDelegate.swift */,
@@ -156,6 +167,7 @@
 				BCC85F2E2611B9930085B621 /* AppDelegate.swift in Sources */,
 				BCC85F4726130A2E0085B621 /* RectangleView.swift in Sources */,
 				BCC85F302611B9930085B621 /* SceneDelegate.swift in Sources */,
+				BCA15FFF2626CF1400F77F66 /* ItemSelector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
