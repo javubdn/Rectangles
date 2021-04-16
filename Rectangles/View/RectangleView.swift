@@ -16,6 +16,7 @@ protocol RectangleDelegate {
 enum Action {
     case duplicate
     case rotate
+    case reduce
 }
 
 class RectangleView: UIView {
@@ -63,6 +64,8 @@ class RectangleView: UIView {
             frame = CGRect(x: frame.minX, y: frame.minY, width: frame.height, height: frame.width)
         case .duplicate:
             frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width * 2, height: frame.height * 2)
+        case .reduce:
+            frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width / 2, height: frame.height / 2)
         }
 
     }
