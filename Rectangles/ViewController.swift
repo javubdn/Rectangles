@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     private func prepareView() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(simpleTap))
         mainView.addGestureRecognizer(tap)
-        optionDCView.listItems = ["Duplicate", "Invert", "Reduce"]
+        optionDCView.listItems = ["Duplicate", "Invert", "Reduce", "Selector"]
         optionDCView.delegate = self
     }
 
@@ -72,6 +72,8 @@ extension ViewController: RectangleDelegate {
                 optionDCView.currentIndex = 1
             case .reduce:
                 optionDCView.currentIndex = 2
+            case .selector:
+                optionDCView.currentIndex = 3
             }
         }
     }
@@ -87,6 +89,8 @@ extension ViewController: ItemSelectorDelegate {
             selectedRectangle?.setAction(.rotate)
         } else if selector.currentIndex == 2 {
             selectedRectangle?.setAction(.reduce)
+        } else if selector.currentIndex == 3 {
+            selectedRectangle?.setAction(.selector)
         }
 
     }

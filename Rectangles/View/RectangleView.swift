@@ -17,6 +17,7 @@ enum Action {
     case duplicate
     case rotate
     case reduce
+    case selector
 }
 
 class RectangleView: UIView {
@@ -66,6 +67,8 @@ class RectangleView: UIView {
             frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width * 2, height: frame.height * 2)
         case .reduce:
             frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width / 2, height: frame.height / 2)
+        case .selector:
+            break
         }
 
     }
