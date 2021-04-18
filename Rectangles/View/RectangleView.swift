@@ -26,6 +26,8 @@ class RectangleView: UIView {
 
     private var originalPosition: CGPoint?
     var action: Action = .duplicate
+    private var externalFieldActive: Bool = false
+    private var externalField = UIView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,6 +42,11 @@ class RectangleView: UIView {
     private func prepareRectangle() {
         layer.cornerRadius = 10
         backgroundColor = randomColor()
+        externalField.frame = CGRect(x: frame.minX-5, y: frame.minY-5, width: frame.width+10, height: frame.height+10)
+        externalField.layer.borderWidth = 2
+        externalField.layer.borderColor = UIColor.red.cgColor
+        addSubview(externalField)
+        updateExternalField()
 
         //Add actions
         let tap = UITapGestureRecognizer()
@@ -50,6 +57,11 @@ class RectangleView: UIView {
         doubleTap.addTarget(self, action: #selector(doubleTapDone))
         doubleTap.numberOfTapsRequired = 2
         addGestureRecognizer(doubleTap)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        externalField.frame = CGRect(x: -5, y: -5, width: frame.width+10, height: frame.height+10)
     }
 
     @objc
@@ -68,14 +80,18 @@ class RectangleView: UIView {
         case .reduce:
             frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width / 2, height: frame.height / 2)
         case .selector:
-            break
+            externalFieldActive = !externalFieldActive
+            updateExternalField()
         }
-
     }
 
     private func randomColor() -> UIColor {
         let hue: CGFloat = CGFloat(arc4random() % 100) / 100.0
         return UIColor(hue: hue, saturation: 1, brightness: 1, alpha: 0.75)
+    }
+
+    private func updateExternalField() {
+        externalField.isHidden = !externalFieldActive
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
