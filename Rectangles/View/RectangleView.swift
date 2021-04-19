@@ -45,6 +45,8 @@ class RectangleView: UIView {
         externalField.frame = CGRect(x: frame.minX-5, y: frame.minY-5, width: frame.width+10, height: frame.height+10)
         externalField.layer.borderWidth = 2
         externalField.layer.borderColor = UIColor.red.cgColor
+        let gesture = UIGestureRecognizer(target: self, action: #selector(selectedExternalField))
+        externalField.addGestureRecognizer(gesture)
         addSubview(externalField)
         updateExternalField()
 
@@ -83,6 +85,11 @@ class RectangleView: UIView {
             externalFieldActive = !externalFieldActive
             updateExternalField()
         }
+    }
+
+    @objc
+    private func selectedExternalField(recognizer: UITapGestureRecognizer) {
+        print(recognizer)
     }
 
     private func randomColor() -> UIColor {
