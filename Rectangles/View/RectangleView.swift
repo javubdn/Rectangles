@@ -23,11 +23,11 @@ enum Action {
 class RectangleView: UIView {
 
     var delegate: RectangleDelegate?
+    private var originalPosition: CGPoint = .zero
 
-    private var originalPosition: CGPoint?
-    var action: Action = .duplicate
+    var action: Action = .selector
     private var externalFieldActive: Bool = false
-    private var externalField = UIView()
+    private var topLeftCornerView = UIView(frame: CGRect(x: -10, y: -10, width: 20, height: 20))
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,18 +42,23 @@ class RectangleView: UIView {
     private func prepareRectangle() {
         layer.cornerRadius = 10
         backgroundColor = randomColor()
-        externalField.frame = CGRect(x: frame.minX-5, y: frame.minY-5, width: frame.width+10, height: frame.height+10)
-        externalField.layer.borderWidth = 2
-        externalField.layer.borderColor = UIColor.red.cgColor
-        let gesture = UIGestureRecognizer(target: self, action: #selector(selectedExternalField))
-        externalField.addGestureRecognizer(gesture)
-        addSubview(externalField)
-        updateExternalField()
+
+        topLeftCornerView.backgroundColor = .black
+        topLeftCornerView.isHidden = !externalFieldActive
+        topLeftCornerView.layer.cornerRadius = 10
+        addSubview(topLeftCornerView)
+
+        let panTopLeftGesture = UIPanGestureRecognizer(target: self, action: #selector(moveTopLeftRectangle))
+        topLeftCornerView.addGestureRecognizer(panTopLeftGesture)
+
 
         //Add actions
         let tap = UITapGestureRecognizer()
         tap.addTarget(self, action: #selector(simpleTapDone))
         addGestureRecognizer(tap)
+
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(moveRectangle))
+        addGestureRecognizer(panGesture)
 
         let doubleTap = UITapGestureRecognizer()
         doubleTap.addTarget(self, action: #selector(doubleTapDone))
@@ -61,15 +66,42 @@ class RectangleView: UIView {
         addGestureRecognizer(doubleTap)
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        externalField.frame = CGRect(x: -5, y: -5, width: frame.width+10, height: frame.height+10)
-    }
-
     @objc
     private func simpleTapDone(recognizer: UITapGestureRecognizer) {
         superview?.bringSubviewToFront(self)
         delegate?.rectangleSelected(self)
+    }
+
+    @objc
+    private func moveRectangle(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .changed:
+            let traslation = recognizer.translation(in: superview)
+            frame.origin.x += traslation.x
+            frame.origin.y += traslation.y
+            recognizer.setTranslation(.zero, in: self)
+        default:
+            break
+        }
+    }
+
+    @objc
+    private func moveTopLeftRectangle(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .changed:
+            let traslation = recognizer.translation(in: superview)
+            if frame.size.width > traslation.x {
+                frame.origin.x += traslation.x
+                frame.size.width -= traslation.x
+            }
+            if frame.size.height > traslation.y {
+                frame.origin.y += traslation.y
+                frame.size.height -= traslation.y
+            }
+            recognizer.setTranslation(.zero, in: self)
+        default:
+            break
+        }
     }
 
     @objc
@@ -83,7 +115,7 @@ class RectangleView: UIView {
             frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width / 2, height: frame.height / 2)
         case .selector:
             externalFieldActive = !externalFieldActive
-            updateExternalField()
+            topLeftCornerView.isHidden = !externalFieldActive
         }
     }
 
@@ -97,24 +129,6 @@ class RectangleView: UIView {
         return UIColor(hue: hue, saturation: 1, brightness: 1, alpha: 0.75)
     }
 
-    private func updateExternalField() {
-        externalField.isHidden = !externalFieldActive
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        originalPosition = center
-    }
-
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else {
-            return
-        }
-        let position = touch.location(in: superview)
-        UIView.animate(withDuration: 0.001) {
-            self.center = CGPoint(x: position.x, y: position.y)
-        }
-    }
-
     //MARK: - Public methods
 
     func setHue(_ hue: Float) {
@@ -125,18 +139,6 @@ class RectangleView: UIView {
         let minimum = min(frame.width, frame.height)
         let radius = CGFloat(cornerRadius) * (minimum / 2)
         layer.cornerRadius = CGFloat(radius)
-    }
-
-    func setLocation(_ location: CGPoint) {
-        originalPosition = location
-        let MAXSize: CGFloat = 150
-        let MINSize: CGFloat = 30
-        let diff = MAXSize - MINSize
-        let newWidth = CGFloat(arc4random()) / CGFloat(UINT32_MAX) * diff + MINSize
-        let newHeight = CGFloat(arc4random()) / CGFloat(UINT32_MAX) * diff + MINSize
-        let newX = location.x - newWidth/2
-        let newY = location.y - newHeight/2
-        self.frame = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
     }
 
     func setAction(_ action: Action) {
