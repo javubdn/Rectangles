@@ -34,8 +34,15 @@ class ViewController: UIViewController {
     @objc
     private func simpleTap(recognizer: UITapGestureRecognizer) {
         //Creation rectangle
-        let newRectangle = RectangleView()
-        newRectangle.setLocation(recognizer.location(in: view))
+        let MAXSize: CGFloat = 150
+        let MINSize: CGFloat = 40
+        let diff = MAXSize - MINSize
+        let newWidth = CGFloat(arc4random()) / CGFloat(UINT32_MAX) * diff + MINSize
+        let newHeight = CGFloat(arc4random()) / CGFloat(UINT32_MAX) * diff + MINSize
+        let newX = recognizer.location(in: view).x - newWidth/2
+        let newY = recognizer.location(in: view).y - newHeight/2
+        let frame = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
+        let newRectangle = RectangleView(frame: frame)
         newRectangle.delegate = self
         view.addSubview(newRectangle)
         rectangleSelected(newRectangle)
