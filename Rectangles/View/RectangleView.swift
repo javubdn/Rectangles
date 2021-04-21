@@ -27,7 +27,8 @@ class RectangleView: UIView {
 
     var action: Action = .selector
     private var externalFieldActive: Bool = false
-    private var topLeftCornerView = UIView(frame: CGRect(x: -10, y: -10, width: 20, height: 20))
+    private var topLeftCornerView = UIView(frame: CGRect(x: -20, y: -20, width: 40, height: 40))
+    private var topRightCornerView = UIView(frame: CGRect(x: 0, y: -20, width: 40, height: 40))
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,6 +51,15 @@ class RectangleView: UIView {
 
         let panTopLeftGesture = UIPanGestureRecognizer(target: self, action: #selector(moveTopLeftRectangle))
         topLeftCornerView.addGestureRecognizer(panTopLeftGesture)
+
+        topRightCornerView.center.x = bounds.maxX
+        topRightCornerView.backgroundColor = .black
+        topRightCornerView.isHidden = !externalFieldActive
+        topRightCornerView.layer.cornerRadius = 10
+        addSubview(topRightCornerView)
+
+        let panTopRightGesture = UIPanGestureRecognizer(target: self, action: #selector(moveTopRightRectangle))
+        topRightCornerView.addGestureRecognizer(panTopRightGesture)
 
 
         //Add actions
@@ -76,10 +86,11 @@ class RectangleView: UIView {
     private func moveRectangle(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .changed:
-            let traslation = recognizer.translation(in: superview)
-            frame.origin.x += traslation.x
-            frame.origin.y += traslation.y
+            let translation = recognizer.translation(in: superview)
+            frame.origin.x += translation.x
+            frame.origin.y += translation.y
             recognizer.setTranslation(.zero, in: self)
+            print("Surprise madafaka")
         default:
             break
         }
@@ -89,16 +100,42 @@ class RectangleView: UIView {
     private func moveTopLeftRectangle(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .changed:
-            let traslation = recognizer.translation(in: superview)
-            if frame.size.width > traslation.x {
-                frame.origin.x += traslation.x
-                frame.size.width -= traslation.x
+            let translation = recognizer.translation(in: superview)
+            if frame.size.width > translation.x {
+                frame.origin.x += translation.x
+                frame.size.width -= translation.x
             }
-            if frame.size.height > traslation.y {
-                frame.origin.y += traslation.y
-                frame.size.height -= traslation.y
+            if frame.size.height > translation.y {
+                frame.origin.y += translation.y
+                frame.size.height -= translation.y
             }
             recognizer.setTranslation(.zero, in: self)
+        default:
+            break
+        }
+    }
+
+    @objc
+    private func moveTopRightRectangle(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .changed:
+            let translation = recognizer.translation(in: superview)
+            if translation.x < 0 {
+                if frame.size.width > abs(translation.x) {
+                    frame.size.width += translation.x
+                } else {
+                    frame.size.width = 0
+                }
+            } else {
+                frame.size.width += translation.x
+            }
+
+            if frame.size.height > translation.y {
+                frame.origin.y += translation.y
+                frame.size.height -= translation.y
+            }
+            recognizer.setTranslation(.zero, in: self)
+            topRightCornerView.center.x = bounds.maxX
         default:
             break
         }
@@ -116,6 +153,7 @@ class RectangleView: UIView {
         case .selector:
             externalFieldActive = !externalFieldActive
             topLeftCornerView.isHidden = !externalFieldActive
+            topRightCornerView.isHidden = !externalFieldActive
         }
     }
 
@@ -127,6 +165,20 @@ class RectangleView: UIView {
     private func randomColor() -> UIColor {
         let hue: CGFloat = CGFloat(arc4random() % 100) / 100.0
         return UIColor(hue: hue, saturation: 1, brightness: 1, alpha: 0.75)
+    }
+
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if topLeftCornerView.point(inside: convert(point, to: topLeftCornerView), with: event) {
+            return topLeftCornerView
+        }
+        if topRightCornerView.point(inside: convert(point, to: topRightCornerView), with: event) {
+            return topRightCornerView
+        }
+        if self.point(inside: convert(point, to: self), with: event) {
+            return self
+        }
+
+        return super.hitTest(point, with: event)
     }
 
     //MARK: - Public methods
