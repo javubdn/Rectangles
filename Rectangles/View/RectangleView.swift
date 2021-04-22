@@ -29,6 +29,7 @@ class RectangleView: UIView {
     private var externalFieldActive: Bool = false
     private var topLeftCornerView = UIView(frame: CGRect(x: -20, y: -20, width: 40, height: 40))
     private var topRightCornerView = UIView(frame: CGRect(x: 0, y: -20, width: 40, height: 40))
+    private var bottomLeftCornerView = UIView(frame: CGRect(x: -20, y: 0, width: 40, height: 40))
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,6 +62,14 @@ class RectangleView: UIView {
         let panTopRightGesture = UIPanGestureRecognizer(target: self, action: #selector(moveTopRightRectangle))
         topRightCornerView.addGestureRecognizer(panTopRightGesture)
 
+        bottomLeftCornerView.center.y = bounds.maxY
+        bottomLeftCornerView.backgroundColor = .black
+        bottomLeftCornerView.isHidden = !externalFieldActive
+        bottomLeftCornerView.layer.cornerRadius = 10
+        addSubview(bottomLeftCornerView)
+
+        let panBottomLeftGesture = UIPanGestureRecognizer(target: self, action: #selector(moveBottomLeftRectangle))
+        bottomLeftCornerView.addGestureRecognizer(panBottomLeftGesture)
 
         //Add actions
         let tap = UITapGestureRecognizer()
@@ -90,7 +99,6 @@ class RectangleView: UIView {
             frame.origin.x += translation.x
             frame.origin.y += translation.y
             recognizer.setTranslation(.zero, in: self)
-            print("Surprise madafaka")
         default:
             break
         }
@@ -110,6 +118,8 @@ class RectangleView: UIView {
                 frame.size.height -= translation.y
             }
             recognizer.setTranslation(.zero, in: self)
+            topRightCornerView.center.x = bounds.maxX
+            bottomLeftCornerView.center.y = bounds.maxY
         default:
             break
         }
@@ -136,6 +146,33 @@ class RectangleView: UIView {
             }
             recognizer.setTranslation(.zero, in: self)
             topRightCornerView.center.x = bounds.maxX
+            bottomLeftCornerView.center.y = bounds.maxY
+        default:
+            break
+        }
+    }
+
+    @objc
+    private func moveBottomLeftRectangle(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .changed:
+            let translation = recognizer.translation(in: superview)
+            if frame.size.width > translation.x {
+                frame.origin.x += translation.x
+                frame.size.width -= translation.x
+            }
+            if translation.y < 0 {
+                if frame.size.height > abs(translation.y) {
+                    frame.size.height += translation.y
+                } else {
+                    frame.size.height = 0
+                }
+            } else {
+                frame.size.height += translation.y
+            }
+            recognizer.setTranslation(.zero, in: self)
+            topRightCornerView.center.x = bounds.maxX
+            bottomLeftCornerView.center.y = bounds.maxY
         default:
             break
         }
@@ -154,6 +191,7 @@ class RectangleView: UIView {
             externalFieldActive = !externalFieldActive
             topLeftCornerView.isHidden = !externalFieldActive
             topRightCornerView.isHidden = !externalFieldActive
+            bottomLeftCornerView.isHidden = !externalFieldActive
         }
     }
 
@@ -168,11 +206,14 @@ class RectangleView: UIView {
     }
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        if topLeftCornerView.point(inside: convert(point, to: topLeftCornerView), with: event) {
+        if topLeftCornerView.point(inside: convert(point, to: topLeftCornerView), with: event) && externalFieldActive {
             return topLeftCornerView
         }
-        if topRightCornerView.point(inside: convert(point, to: topRightCornerView), with: event) {
+        if topRightCornerView.point(inside: convert(point, to: topRightCornerView), with: event) && externalFieldActive {
             return topRightCornerView
+        }
+        if bottomLeftCornerView.point(inside: convert(point, to: bottomLeftCornerView), with: event) && externalFieldActive {
+            return bottomLeftCornerView
         }
         if self.point(inside: convert(point, to: self), with: event) {
             return self
