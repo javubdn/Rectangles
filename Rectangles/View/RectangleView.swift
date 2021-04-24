@@ -233,10 +233,22 @@ class RectangleView: UIView {
         switch action {
         case .rotate:
             frame = CGRect(x: frame.minX, y: frame.minY, width: frame.height, height: frame.width)
+            topRightCornerView.center.x = bounds.maxX
+            bottomLeftCornerView.center.y = bounds.maxY
+            bottomRightCornerView.center.x = bounds.maxX
+            bottomRightCornerView.center.y = bounds.maxY
         case .duplicate:
             frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width * 2, height: frame.height * 2)
+            topRightCornerView.center.x = bounds.maxX
+            bottomLeftCornerView.center.y = bounds.maxY
+            bottomRightCornerView.center.x = bounds.maxX
+            bottomRightCornerView.center.y = bounds.maxY
         case .reduce:
             frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width / 2, height: frame.height / 2)
+            topRightCornerView.center.x = bounds.maxX
+            bottomLeftCornerView.center.y = bounds.maxY
+            bottomRightCornerView.center.x = bounds.maxX
+            bottomRightCornerView.center.y = bounds.maxY
         case .selector:
             externalFieldActive = !externalFieldActive
             topLeftCornerView.isHidden = !externalFieldActive
@@ -290,6 +302,13 @@ class RectangleView: UIView {
 
     func setAction(_ action: Action) {
         self.action = action
+        if action != .selector {
+            externalFieldActive = false
+            topLeftCornerView.isHidden = !externalFieldActive
+            topRightCornerView.isHidden = !externalFieldActive
+            bottomLeftCornerView.isHidden = !externalFieldActive
+            bottomRightCornerView.isHidden = !externalFieldActive
+        }
     }
 
 }
