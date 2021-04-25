@@ -27,10 +27,10 @@ class RectangleView: UIView {
 
     var action: Action = .selector
     private var externalFieldActive: Bool = false
-    private var topLeftCornerView = UIView(frame: CGRect(x: -20, y: -20, width: 40, height: 40))
-    private var topRightCornerView = UIView(frame: CGRect(x: 0, y: -20, width: 40, height: 40))
-    private var bottomLeftCornerView = UIView(frame: CGRect(x: -20, y: 0, width: 40, height: 40))
-    private var bottomRightCornerView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+    private var topLeftCornerView = UIView(frame: CGRect(x: -10, y: -10, width: 20, height: 20))
+    private var topRightCornerView = UIView(frame: CGRect(x: 0, y: -10, width: 20, height: 20))
+    private var bottomLeftCornerView = UIView(frame: CGRect(x: -10, y: 0, width: 20, height: 20))
+    private var bottomRightCornerView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
 
     override init(frame: CGRect) {
         super.init(frame: frame)
