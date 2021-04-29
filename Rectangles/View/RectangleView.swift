@@ -35,6 +35,7 @@ class RectangleView: UIView {
     private var topExtensionView = UIView(frame: CGRect(x: 10, y: -10, width: 0, height: 20))
     private var leftExtensionView = UIView(frame: CGRect(x: -10, y: 10, width: 20, height: 0))
     private var rightExtensionView = UIView(frame: CGRect(x: 0, y: 10, width: 20, height: 0))
+    private var bottomExtensionView = UIView(frame: CGRect(x: 10, y: 0, width: 0, height: 20))
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -114,6 +115,16 @@ class RectangleView: UIView {
         let panRightExtensionGesture = UIPanGestureRecognizer(target: self, action: #selector(moveRightExtensionRectangle))
         rightExtensionView.addGestureRecognizer(panRightExtensionGesture)
 
+        bottomExtensionView.center.y = bounds.maxY
+        bottomExtensionView.frame.size.width = frame.width - 20
+        bottomExtensionView.backgroundColor = .black
+        bottomExtensionView.isHidden = !externalFieldActive
+        bottomExtensionView.layer.cornerRadius = 10
+        addSubview(bottomExtensionView)
+
+        let panBottomExtensionGesture = UIPanGestureRecognizer(target: self, action: #selector(moveBottomExtensionRectangle))
+        bottomExtensionView.addGestureRecognizer(panBottomExtensionGesture)
+
         //Add actions
         let tap = UITapGestureRecognizer()
         tap.addTarget(self, action: #selector(simpleTapDone))
@@ -169,6 +180,8 @@ class RectangleView: UIView {
             leftExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
             rightExtensionView.center.x = bounds.maxX
             rightExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
+            bottomExtensionView.center.y = bounds.maxY
+            bottomExtensionView.frame.size.width = frame.width > 20 ? frame.width - 20 : 0
         default:
             break
         }
@@ -202,6 +215,8 @@ class RectangleView: UIView {
             leftExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
             rightExtensionView.center.x = bounds.maxX
             rightExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
+            bottomExtensionView.center.y = bounds.maxY
+            bottomExtensionView.frame.size.width = frame.width > 20 ? frame.width - 20 : 0
         default:
             break
         }
@@ -234,6 +249,8 @@ class RectangleView: UIView {
             leftExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
             rightExtensionView.center.x = bounds.maxX
             rightExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
+            bottomExtensionView.center.y = bounds.maxY
+            bottomExtensionView.frame.size.width = frame.width > 20 ? frame.width - 20 : 0
         default:
             break
         }
@@ -271,6 +288,8 @@ class RectangleView: UIView {
             leftExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
             rightExtensionView.center.x = bounds.maxX
             rightExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
+            bottomExtensionView.center.y = bounds.maxY
+            bottomExtensionView.frame.size.width = frame.width > 20 ? frame.width - 20 : 0
         default:
             break
         }
@@ -294,6 +313,8 @@ class RectangleView: UIView {
             leftExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
             rightExtensionView.center.x = bounds.maxX
             rightExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
+            bottomExtensionView.center.y = bounds.maxY
+            bottomExtensionView.frame.size.width = frame.width > 20 ? frame.width - 20 : 0
         default:
             break
         }
@@ -317,6 +338,8 @@ class RectangleView: UIView {
             leftExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
             rightExtensionView.center.x = bounds.maxX
             rightExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
+            bottomExtensionView.center.y = bounds.maxY
+            bottomExtensionView.frame.size.width = frame.width > 20 ? frame.width - 20 : 0
         default:
             break
         }
@@ -345,6 +368,38 @@ class RectangleView: UIView {
             leftExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
             rightExtensionView.center.x = bounds.maxX
             rightExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
+            bottomExtensionView.center.y = bounds.maxY
+            bottomExtensionView.frame.size.width = frame.width > 20 ? frame.width - 20 : 0
+        default:
+            break
+        }
+    }
+
+    @objc
+    private func moveBottomExtensionRectangle(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .changed:
+            let translation = recognizer.translation(in: superview)
+            if translation.y < 0 {
+                if frame.size.height > abs(translation.y) {
+                    frame.size.height += translation.y
+                } else {
+                    frame.size.height = 0
+                }
+            } else {
+                frame.size.height += translation.y
+            }
+            recognizer.setTranslation(.zero, in: self)
+            topRightCornerView.center.x = bounds.maxX
+            bottomLeftCornerView.center.y = bounds.maxY
+            bottomRightCornerView.center.x = bounds.maxX
+            bottomRightCornerView.center.y = bounds.maxY
+            topExtensionView.frame.size.width = frame.width > 20 ? frame.width - 20 : 0
+            leftExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
+            rightExtensionView.center.x = bounds.maxX
+            rightExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
+            bottomExtensionView.center.y = bounds.maxY
+            bottomExtensionView.frame.size.width = frame.width > 20 ? frame.width - 20 : 0
         default:
             break
         }
@@ -363,6 +418,8 @@ class RectangleView: UIView {
             leftExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
             rightExtensionView.center.x = bounds.maxX
             rightExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
+            bottomExtensionView.center.y = bounds.maxY
+            bottomExtensionView.frame.size.width = frame.width > 20 ? frame.width - 20 : 0
         case .duplicate:
             frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width * 2, height: frame.height * 2)
             topRightCornerView.center.x = bounds.maxX
@@ -373,6 +430,8 @@ class RectangleView: UIView {
             leftExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
             rightExtensionView.center.x = bounds.maxX
             rightExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
+            bottomExtensionView.center.y = bounds.maxY
+            bottomExtensionView.frame.size.width = frame.width > 20 ? frame.width - 20 : 0
         case .reduce:
             frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width / 2, height: frame.height / 2)
             topRightCornerView.center.x = bounds.maxX
@@ -383,6 +442,8 @@ class RectangleView: UIView {
             leftExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
             rightExtensionView.center.x = bounds.maxX
             rightExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
+            bottomExtensionView.center.y = bounds.maxY
+            bottomExtensionView.frame.size.width = frame.width > 20 ? frame.width - 20 : 0
         case .selector:
             externalFieldActive = !externalFieldActive
             topLeftCornerView.isHidden = !externalFieldActive
@@ -392,6 +453,7 @@ class RectangleView: UIView {
             topExtensionView.isHidden = !externalFieldActive
             leftExtensionView.isHidden = !externalFieldActive
             rightExtensionView.isHidden = !externalFieldActive
+            bottomExtensionView.isHidden = !externalFieldActive
         }
     }
 
@@ -427,6 +489,9 @@ class RectangleView: UIView {
         if rightExtensionView.point(inside: convert(point, to: rightExtensionView), with: event) && externalFieldActive {
             return rightExtensionView
         }
+        if bottomExtensionView.point(inside: convert(point, to: bottomExtensionView), with: event) && externalFieldActive {
+            return bottomExtensionView
+        }
         if self.point(inside: convert(point, to: self), with: event) {
             return self
         }
@@ -457,6 +522,7 @@ class RectangleView: UIView {
             topExtensionView.isHidden = !externalFieldActive
             leftExtensionView.isHidden = !externalFieldActive
             rightExtensionView.isHidden = !externalFieldActive
+            bottomExtensionView.isHidden = !externalFieldActive
         }
     }
 
