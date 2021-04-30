@@ -54,6 +54,7 @@ class RectangleView: UIView {
         topLeftCornerView.backgroundColor = .black
         topLeftCornerView.isHidden = !externalFieldActive
         topLeftCornerView.layer.cornerRadius = 10
+        topLeftCornerView.layer.maskedCorners = [.layerMinXMinYCorner]
         addSubview(topLeftCornerView)
 
         let panTopLeftGesture = UIPanGestureRecognizer(target: self, action: #selector(moveTopLeftRectangle))
@@ -63,6 +64,7 @@ class RectangleView: UIView {
         topRightCornerView.backgroundColor = .black
         topRightCornerView.isHidden = !externalFieldActive
         topRightCornerView.layer.cornerRadius = 10
+        topRightCornerView.layer.maskedCorners = [.layerMaxXMinYCorner]
         addSubview(topRightCornerView)
 
         let panTopRightGesture = UIPanGestureRecognizer(target: self, action: #selector(moveTopRightRectangle))
@@ -72,6 +74,7 @@ class RectangleView: UIView {
         bottomLeftCornerView.backgroundColor = .black
         bottomLeftCornerView.isHidden = !externalFieldActive
         bottomLeftCornerView.layer.cornerRadius = 10
+        bottomLeftCornerView.layer.maskedCorners = [.layerMinXMaxYCorner]
         addSubview(bottomLeftCornerView)
 
         let panBottomLeftGesture = UIPanGestureRecognizer(target: self, action: #selector(moveBottomLeftRectangle))
@@ -82,6 +85,7 @@ class RectangleView: UIView {
         bottomRightCornerView.backgroundColor = .black
         bottomRightCornerView.isHidden = !externalFieldActive
         bottomRightCornerView.layer.cornerRadius = 10
+        bottomRightCornerView.layer.maskedCorners = [.layerMaxXMaxYCorner]
         addSubview(bottomRightCornerView)
 
         let panBottomRightGesture = UIPanGestureRecognizer(target: self, action: #selector(moveBottomRightRectangle))
@@ -90,7 +94,6 @@ class RectangleView: UIView {
         topExtensionView.frame.size.width = frame.width - 20
         topExtensionView.backgroundColor = .black
         topExtensionView.isHidden = !externalFieldActive
-        topExtensionView.layer.cornerRadius = 10
         addSubview(topExtensionView)
 
         let panTopExtensionGesture = UIPanGestureRecognizer(target: self, action: #selector(moveTopExtensionRectangle))
@@ -99,7 +102,6 @@ class RectangleView: UIView {
         leftExtensionView.frame.size.height = frame.height - 20
         leftExtensionView.backgroundColor = .black
         leftExtensionView.isHidden = !externalFieldActive
-        leftExtensionView.layer.cornerRadius = 10
         addSubview(leftExtensionView)
 
         let panLeftExtensionGesture = UIPanGestureRecognizer(target: self, action: #selector(moveLeftExtensionRectangle))
@@ -109,7 +111,6 @@ class RectangleView: UIView {
         rightExtensionView.frame.size.height = frame.height - 20
         rightExtensionView.backgroundColor = .black
         rightExtensionView.isHidden = !externalFieldActive
-        rightExtensionView.layer.cornerRadius = 10
         addSubview(rightExtensionView)
 
         let panRightExtensionGesture = UIPanGestureRecognizer(target: self, action: #selector(moveRightExtensionRectangle))
@@ -119,7 +120,6 @@ class RectangleView: UIView {
         bottomExtensionView.frame.size.width = frame.width - 20
         bottomExtensionView.backgroundColor = .black
         bottomExtensionView.isHidden = !externalFieldActive
-        bottomExtensionView.layer.cornerRadius = 10
         addSubview(bottomExtensionView)
 
         let panBottomExtensionGesture = UIPanGestureRecognizer(target: self, action: #selector(moveBottomExtensionRectangle))
