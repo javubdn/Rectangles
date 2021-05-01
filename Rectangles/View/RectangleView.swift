@@ -22,6 +22,12 @@ enum Action {
 
 class RectangleView: UIView {
 
+    private enum Movement {
+        case positive
+        case negative
+        case zero
+    }
+
     var delegate: RectangleDelegate?
     private var originalPosition: CGPoint = .zero
 
@@ -397,6 +403,34 @@ class RectangleView: UIView {
         leftExtensionView.isHidden = !externalFieldActive
         rightExtensionView.isHidden = !externalFieldActive
         bottomExtensionView.isHidden = !externalFieldActive
+    }
+
+    private func moveExtensionView(translation: CGPoint, horizontal: Movement, vertical: Movement) {
+        if horizontal == .positive {
+            if translation.x < 0 && frame.size.width <= abs(translation.x) {
+                frame.size.width = 0
+            } else {
+                frame.size.width += translation.x
+            }
+        } else if horizontal == .negative {
+            if frame.size.width > translation.x {
+                frame.origin.x += translation.x
+                frame.size.width -= translation.x
+            }
+        }
+
+        if vertical == .positive {
+            if translation.y < 0 && frame.size.height <= abs(translation.y) {
+                frame.size.height = 0
+            } else {
+                frame.size.height += translation.y
+            }
+        } else if vertical == .negative {
+            if frame.size.height > translation.y {
+                frame.origin.y += translation.y
+                frame.size.height -= translation.y
+            }
+        }
     }
 
     //MARK: - Public methods
