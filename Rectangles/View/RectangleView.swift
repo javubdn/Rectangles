@@ -57,61 +57,26 @@ class RectangleView: UIView {
         layer.cornerRadius = 10
         backgroundColor = randomColor()
 
-        topLeftCornerView.backgroundColor = .black
         topLeftCornerView.layer.cornerRadius = 10
         topLeftCornerView.layer.maskedCorners = [.layerMinXMinYCorner]
-        addSubview(topLeftCornerView)
 
-        let panTopLeftGesture = UIPanGestureRecognizer(target: self, action: #selector(moveTopLeftRectangle))
-        topLeftCornerView.addGestureRecognizer(panTopLeftGesture)
-
-        topRightCornerView.backgroundColor = .black
         topRightCornerView.layer.cornerRadius = 10
         topRightCornerView.layer.maskedCorners = [.layerMaxXMinYCorner]
-        addSubview(topRightCornerView)
 
-        let panTopRightGesture = UIPanGestureRecognizer(target: self, action: #selector(moveTopRightRectangle))
-        topRightCornerView.addGestureRecognizer(panTopRightGesture)
-
-        bottomLeftCornerView.backgroundColor = .black
         bottomLeftCornerView.layer.cornerRadius = 10
         bottomLeftCornerView.layer.maskedCorners = [.layerMinXMaxYCorner]
-        addSubview(bottomLeftCornerView)
 
-        let panBottomLeftGesture = UIPanGestureRecognizer(target: self, action: #selector(moveBottomLeftRectangle))
-        bottomLeftCornerView.addGestureRecognizer(panBottomLeftGesture)
-
-        bottomRightCornerView.backgroundColor = .black
         bottomRightCornerView.layer.cornerRadius = 10
         bottomRightCornerView.layer.maskedCorners = [.layerMaxXMaxYCorner]
-        addSubview(bottomRightCornerView)
 
-        let panBottomRightGesture = UIPanGestureRecognizer(target: self, action: #selector(moveBottomRightRectangle))
-        bottomRightCornerView.addGestureRecognizer(panBottomRightGesture)
+        let externalViews = [topLeftCornerView, topRightCornerView, bottomLeftCornerView, bottomRightCornerView, topExtensionView, leftExtensionView, rightExtensionView, bottomExtensionView]
 
-        topExtensionView.backgroundColor = .black
-        addSubview(topExtensionView)
-
-        let panTopExtensionGesture = UIPanGestureRecognizer(target: self, action: #selector(moveTopExtensionRectangle))
-        topExtensionView.addGestureRecognizer(panTopExtensionGesture)
-
-        leftExtensionView.backgroundColor = .black
-        addSubview(leftExtensionView)
-
-        let panLeftExtensionGesture = UIPanGestureRecognizer(target: self, action: #selector(moveLeftExtensionRectangle))
-        leftExtensionView.addGestureRecognizer(panLeftExtensionGesture)
-
-        rightExtensionView.backgroundColor = .black
-        addSubview(rightExtensionView)
-
-        let panRightExtensionGesture = UIPanGestureRecognizer(target: self, action: #selector(moveRightExtensionRectangle))
-        rightExtensionView.addGestureRecognizer(panRightExtensionGesture)
-
-        bottomExtensionView.backgroundColor = .black
-        addSubview(bottomExtensionView)
-
-        let panBottomExtensionGesture = UIPanGestureRecognizer(target: self, action: #selector(moveBottomExtensionRectangle))
-        bottomExtensionView.addGestureRecognizer(panBottomExtensionGesture)
+        for externalView in externalViews {
+            externalView.backgroundColor = .black
+            addSubview(externalView)
+            let panExtensionGesture = UIPanGestureRecognizer(target: self, action: #selector(move))
+            externalView.addGestureRecognizer(panExtensionGesture)
+        }
 
         updateResizerViews()
         updateResizerVisibility()
@@ -150,172 +115,29 @@ class RectangleView: UIView {
     }
 
     @objc
-    private func moveTopLeftRectangle(recognizer: UIPanGestureRecognizer) {
+    private func move(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .changed:
             let translation = recognizer.translation(in: superview)
-            if frame.size.width > translation.x {
-                frame.origin.x += translation.x
-                frame.size.width -= translation.x
-            }
-            if frame.size.height > translation.y {
-                frame.origin.y += translation.y
-                frame.size.height -= translation.y
-            }
-            recognizer.setTranslation(.zero, in: self)
-            updateResizerViews()
-        default:
-            break
-        }
-    }
-
-    @objc
-    private func moveTopRightRectangle(recognizer: UIPanGestureRecognizer) {
-        switch recognizer.state {
-        case .changed:
-            let translation = recognizer.translation(in: superview)
-            if translation.x < 0 {
-                if frame.size.width > abs(translation.x) {
-                    frame.size.width += translation.x
-                } else {
-                    frame.size.width = 0
-                }
-            } else {
-                frame.size.width += translation.x
-            }
-
-            if frame.size.height > translation.y {
-                frame.origin.y += translation.y
-                frame.size.height -= translation.y
-            }
-            recognizer.setTranslation(.zero, in: self)
-            updateResizerViews()
-        default:
-            break
-        }
-    }
-
-    @objc
-    private func moveBottomLeftRectangle(recognizer: UIPanGestureRecognizer) {
-        switch recognizer.state {
-        case .changed:
-            let translation = recognizer.translation(in: superview)
-            if frame.size.width > translation.x {
-                frame.origin.x += translation.x
-                frame.size.width -= translation.x
-            }
-            if translation.y < 0 {
-                if frame.size.height > abs(translation.y) {
-                    frame.size.height += translation.y
-                } else {
-                    frame.size.height = 0
-                }
-            } else {
-                frame.size.height += translation.y
-            }
-            recognizer.setTranslation(.zero, in: self)
-            updateResizerViews()
-        default:
-            break
-        }
-    }
-
-    @objc
-    private func moveBottomRightRectangle(recognizer: UIPanGestureRecognizer) {
-        switch recognizer.state {
-        case .changed:
-            let translation = recognizer.translation(in: superview)
-            if translation.x < 0 {
-                if frame.size.width > abs(translation.x) {
-                    frame.size.width += translation.x
-                } else {
-                    frame.size.width = 0
-                }
-            } else {
-                frame.size.width += translation.x
-            }
-            if translation.y < 0 {
-                if frame.size.height > abs(translation.y) {
-                    frame.size.height += translation.y
-                } else {
-                    frame.size.height = 0
-                }
-            } else {
-                frame.size.height += translation.y
-            }
-            recognizer.setTranslation(.zero, in: self)
-            updateResizerViews()
-        default:
-            break
-        }
-    }
-
-    @objc
-    private func moveTopExtensionRectangle(recognizer: UIPanGestureRecognizer) {
-        switch recognizer.state {
-        case .changed:
-            let translation = recognizer.translation(in: superview)
-            if frame.size.height > translation.y {
-                frame.origin.y += translation.y
-                frame.size.height -= translation.y
-            }
-            recognizer.setTranslation(.zero, in: self)
-            updateResizerViews()
-        default:
-            break
-        }
-    }
-
-    @objc
-    private func moveLeftExtensionRectangle(recognizer: UIPanGestureRecognizer) {
-        switch recognizer.state {
-        case .changed:
-            let translation = recognizer.translation(in: superview)
-            if frame.size.width > translation.x {
-                frame.origin.x += translation.x
-                frame.size.width -= translation.x
-            }
-            recognizer.setTranslation(.zero, in: self)
-            updateResizerViews()
-        default:
-            break
-        }
-    }
-
-    @objc
-    private func moveRightExtensionRectangle(recognizer: UIPanGestureRecognizer) {
-        switch recognizer.state {
-        case .changed:
-            let translation = recognizer.translation(in: superview)
-            if translation.x < 0 {
-                if frame.size.width > abs(translation.x) {
-                    frame.size.width += translation.x
-                } else {
-                    frame.size.width = 0
-                }
-            } else {
-                frame.size.width += translation.x
-            }
-            recognizer.setTranslation(.zero, in: self)
-            updateResizerViews()
-        default:
-            break
-        }
-    }
-
-    @objc
-    private func moveBottomExtensionRectangle(recognizer: UIPanGestureRecognizer) {
-        switch recognizer.state {
-        case .changed:
-            let translation = recognizer.translation(in: superview)
-            if translation.y < 0 {
-                if frame.size.height > abs(translation.y) {
-                    frame.size.height += translation.y
-                } else {
-                    frame.size.height = 0
-                }
-            } else {
-                frame.size.height += translation.y
+            switch recognizer.view {
+            case topLeftCornerView:
+                moveExtensionView(translation: translation, horizontal: .negative, vertical: .negative)
+            case topRightCornerView:
+                moveExtensionView(translation: translation, horizontal: .positive, vertical: .negative)
+            case bottomLeftCornerView:
+                moveExtensionView(translation: translation, horizontal: .negative, vertical: .positive)
+            case bottomRightCornerView:
+                moveExtensionView(translation: translation, horizontal: .positive, vertical: .positive)
+            case topExtensionView:
+                moveExtensionView(translation: translation, horizontal: .zero, vertical: .negative)
+            case leftExtensionView:
+                moveExtensionView(translation: translation, horizontal: .negative, vertical: .zero)
+            case rightExtensionView:
+                moveExtensionView(translation: translation, horizontal: .positive, vertical: .zero)
+            case bottomExtensionView:
+                moveExtensionView(translation: translation, horizontal: .zero, vertical: .positive)
+            default:
+                break
             }
             recognizer.setTranslation(.zero, in: self)
             updateResizerViews()
