@@ -43,6 +43,9 @@ class RectangleView: UIView {
     private var rightExtensionView = UIView(frame: CGRect(x: 0, y: 10, width: 20, height: 0))
     private var bottomExtensionView = UIView(frame: CGRect(x: 10, y: 0, width: 0, height: 20))
 
+    private var currentWidth: CGFloat = 0
+    private var currentHeight: CGFloat = 0
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         prepareRectangle()
@@ -228,6 +231,8 @@ class RectangleView: UIView {
     }
 
     private func moveExtensionView(translation: CGPoint, horizontal: Movement, vertical: Movement) {
+        currentWidth = frame.size.width
+        currentHeight = frame.size.height
         if horizontal == .positive {
             if translation.x < 0 && frame.size.width <= abs(translation.x) {
                 frame.size.width = 0
@@ -253,6 +258,15 @@ class RectangleView: UIView {
                 frame.size.height -= translation.y
             }
         }
+        recalculateCornerRadius()
+    }
+
+    private func recalculateCornerRadius() {
+        let cornerRadius: CGFloat = layer.cornerRadius
+        let proportion = cornerRadius/min(currentWidth, currentHeight)
+        let minimum = min(frame.width, frame.height)
+        let radius = proportion * minimum
+        layer.cornerRadius = CGFloat(radius)
     }
 
     //MARK: - Public methods
