@@ -96,6 +96,9 @@ class RectangleView: UIView {
         doubleTap.addTarget(self, action: #selector(doubleTapDone))
         doubleTap.numberOfTapsRequired = 2
         addGestureRecognizer(doubleTap)
+
+        addInteraction(UIContextMenuInteraction(delegate: self))
+
     }
 
     @objc
@@ -289,4 +292,15 @@ class RectangleView: UIView {
         }
     }
 
+}
+
+extension RectangleView: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash.fill"), attributes: .destructive) { _ in
+            self.removeFromSuperview()
+        }
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            UIMenu(title: "Acciones", children: [delete])
+        }
+    }
 }
