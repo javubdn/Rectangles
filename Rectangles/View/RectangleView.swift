@@ -99,6 +99,8 @@ class RectangleView: UIView {
 
         addInteraction(UIContextMenuInteraction(delegate: self))
 
+        addGestureRecognizer(UIRotationGestureRecognizer(target: self, action: #selector(rotateRectangle)))
+
     }
 
     @objc
@@ -111,10 +113,15 @@ class RectangleView: UIView {
     private func moveRectangle(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .changed:
-            let translation = recognizer.translation(in: superview)
-            frame.origin.x += translation.x
-            frame.origin.y += translation.y
-            recognizer.setTranslation(.zero, in: self)
+            let translation = recognizer.translation(in: self)
+//            frame.origin.x += translation.x
+//            frame.origin.y += translation.y
+//            recognizer.setTranslation(.zero, in: self)
+
+            if recognizer.state == .began || recognizer.state == .changed {
+                transform = transform.translatedBy(x: translation.x, y: translation.y)
+                recognizer.setTranslation(.zero, in: self)
+            }
         default:
             break
         }
@@ -124,7 +131,7 @@ class RectangleView: UIView {
     private func move(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .changed:
-            let translation = recognizer.translation(in: superview)
+            let translation = recognizer.translation(in: self)
             switch recognizer.view {
             case topLeftCornerView:
                 moveExtensionView(translation: translation, horizontal: .negative, vertical: .negative)
@@ -169,6 +176,15 @@ class RectangleView: UIView {
             updateResizerVisibility()
         }
     }
+
+    @objc
+    private func rotateRectangle(recognizer: UIRotationGestureRecognizer) {
+        if recognizer.state == .began || recognizer.state == .changed {
+            transform = transform.rotated(by: recognizer.rotation)
+            recognizer.rotation = 0
+        }
+    }
+
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if topLeftCornerView.point(inside: convert(point, to: topLeftCornerView), with: event) && externalFieldActive {
@@ -234,34 +250,52 @@ class RectangleView: UIView {
     }
 
     private func moveExtensionView(translation: CGPoint, horizontal: Movement, vertical: Movement) {
-        currentWidth = frame.size.width
-        currentHeight = frame.size.height
+        currentWidth = bounds.size.width
+        currentHeight = bounds.size.height
+
         if horizontal == .positive {
-            if translation.x < 0 && frame.size.width <= abs(translation.x) {
-                frame.size.width = 0
-            } else {
-                frame.size.width += translation.x
-            }
+            transform =  transform.scaledBy(x: (currentWidth + translation.x)/currentWidth, y: 1.0)
+            transform = transform.translatedBy(x: translation.x/2, y: 0.0)
         } else if horizontal == .negative {
-            if frame.size.width > translation.x {
-                frame.origin.x += translation.x
-                frame.size.width -= translation.x
-            }
+            transform =  transform.scaledBy(x: (currentWidth - translation.x)/currentWidth, y: 1.0)
+            transform = transform.translatedBy(x: translation.x/2, y: 0.0)
         }
 
         if vertical == .positive {
-            if translation.y < 0 && frame.size.height <= abs(translation.y) {
-                frame.size.height = 0
-            } else {
-                frame.size.height += translation.y
-            }
+            transform =  transform.scaledBy(x: 1.0, y: (currentHeight + translation.y)/currentHeight)
+            transform = transform.translatedBy(x: 0.0, y: translation.y/2)
         } else if vertical == .negative {
-            if frame.size.height > translation.y {
-                frame.origin.y += translation.y
-                frame.size.height -= translation.y
-            }
+            transform =  transform.scaledBy(x: 1.0, y: (currentHeight - translation.y)/currentHeight)
+            transform = transform.translatedBy(x: 0.0, y: translation.y/2)
         }
-        recalculateCornerRadius()
+
+
+//        if horizontal == .positive {
+//            if translation.x < 0 && frame.size.width <= abs(translation.x) {
+//                frame.size.width = 0
+//            } else {
+//                frame.size.width += translation.x
+//            }
+//        } else if horizontal == .negative {
+//            if frame.size.width > translation.x {
+//                frame.origin.x += translation.x
+//                frame.size.width -= translation.x
+//            }
+//        }
+//
+//        if vertical == .positive {
+//            if translation.y < 0 && frame.size.height <= abs(translation.y) {
+//                frame.size.height = 0
+//            } else {
+//                frame.size.height += translation.y
+//            }
+//        } else if vertical == .negative {
+//            if frame.size.height > translation.y {
+//                frame.origin.y += translation.y
+//                frame.size.height -= translation.y
+//            }
+//        }
+//        recalculateCornerRadius()
     }
 
     private func recalculateCornerRadius() {
