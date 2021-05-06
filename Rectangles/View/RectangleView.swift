@@ -230,12 +230,12 @@ class RectangleView: UIView {
         bottomLeftCornerView.center.y = bounds.maxY
         bottomRightCornerView.center.x = bounds.maxX
         bottomRightCornerView.center.y = bounds.maxY
-        topExtensionView.frame.size.width = frame.width > 20 ? frame.width - 20 : 0
-        leftExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
+        topExtensionView.frame.size.width = bounds.width > 20 ? bounds.width - 20 : 0
+        leftExtensionView.frame.size.height = bounds.height > 20 ? bounds.height - 20 : 0
         rightExtensionView.center.x = bounds.maxX
-        rightExtensionView.frame.size.height = frame.height > 20 ? frame.height - 20 : 0
+        rightExtensionView.frame.size.height = bounds.height > 20 ? bounds.height - 20 : 0
         bottomExtensionView.center.y = bounds.maxY
-        bottomExtensionView.frame.size.width = frame.width > 20 ? frame.width - 20 : 0
+        bottomExtensionView.frame.size.width = bounds.width > 20 ? bounds.width - 20 : 0
     }
 
     private func updateResizerVisibility() {
@@ -295,13 +295,13 @@ class RectangleView: UIView {
 //                frame.size.height -= translation.y
 //            }
 //        }
-//        recalculateCornerRadius()
+        recalculateCornerRadius()
     }
 
     private func recalculateCornerRadius() {
         let cornerRadius: CGFloat = layer.cornerRadius
         let proportion = cornerRadius/min(currentWidth, currentHeight)
-        let minimum = min(frame.width, frame.height)
+        let minimum = min(bounds.width, bounds.height)
         let radius = proportion * minimum
         layer.cornerRadius = CGFloat(radius)
     }
@@ -313,7 +313,7 @@ class RectangleView: UIView {
     }
 
     func setCornerRadius(_ cornerRadius: Float) {
-        let minimum = min(frame.width, frame.height)
+        let minimum = min(bounds.width, bounds.height)
         let radius = CGFloat(cornerRadius) * (minimum / 2)
         layer.cornerRadius = CGFloat(radius)
     }

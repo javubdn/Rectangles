@@ -70,7 +70,7 @@ extension ViewController: RectangleDelegate {
         hueSlider.value = Float(hue)
         if let selectedRectangle = selectedRectangle {
             let cornerRadius: CGFloat = selectedRectangle.layer.cornerRadius
-            let minimum = min(selectedRectangle.frame.width, selectedRectangle.frame.height)
+            let minimum = min(selectedRectangle.bounds.width, selectedRectangle.bounds.height)
             cornerRadiusSlider.value = Float(cornerRadius / (minimum / 2))
             switch selectedRectangle.action {
             case .duplicate:
