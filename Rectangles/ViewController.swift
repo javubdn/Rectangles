@@ -55,6 +55,11 @@ class ViewController: UIViewController {
     @IBAction func cornerRadiusSliderChanged(_ sender: UISlider) {
         selectedRectangle?.setCornerRadius(sender.value)
     }
+
+    @IBAction func resetButtonPressed(_ sender: UIButton) {
+        selectedRectangle?.reset()
+    }
+
 }
 
 extension ViewController: RectangleDelegate {

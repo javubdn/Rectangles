@@ -326,6 +326,10 @@ class RectangleView: UIView {
         }
     }
 
+    func reset() {
+        transform = .identity
+    }
+
 }
 
 extension RectangleView: UIContextMenuInteractionDelegate {
