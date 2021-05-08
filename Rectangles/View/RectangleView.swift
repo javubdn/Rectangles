@@ -45,9 +45,13 @@ class RectangleView: UIView {
 
     private var currentWidth: CGFloat = 0
     private var currentHeight: CGFloat = 0
+    private var currentTransform = CGAffineTransform.identity
 
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        let fr = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        super.init(frame: fr)
+        transform = transform.translatedBy(x: frame.origin.x, y: frame.origin.y)
+        currentTransform = transform
         prepareRectangle()
     }
 
@@ -101,6 +105,7 @@ class RectangleView: UIView {
 
         addGestureRecognizer(UIRotationGestureRecognizer(target: self, action: #selector(rotateRectangle)))
 
+        addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(resizeRectangle)))
     }
 
     @objc
@@ -153,7 +158,7 @@ class RectangleView: UIView {
                 break
             }
             recognizer.setTranslation(.zero, in: self)
-            updateResizerViews()
+//            updateResizerViews()
         default:
             break
         }
@@ -183,6 +188,16 @@ class RectangleView: UIView {
             transform = transform.rotated(by: recognizer.rotation)
             recognizer.rotation = 0
         }
+    }
+
+    @objc
+    private func resizeRectangle(recognizer: UIPinchGestureRecognizer) {
+        guard recognizer.state == .began || recognizer.state == .changed else {
+            return
+        }
+        let lastScale = recognizer.scale
+        transform = transform.scaledBy(x: lastScale, y: lastScale)
+        recognizer.scale = 1
     }
 
 
@@ -327,7 +342,7 @@ class RectangleView: UIView {
     }
 
     func reset() {
-        transform = .identity
+        transform = currentTransform
     }
 
 }
