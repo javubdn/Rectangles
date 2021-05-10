@@ -158,7 +158,7 @@ class RectangleView: UIView {
                 break
             }
             recognizer.setTranslation(.zero, in: self)
-//            updateResizerViews()
+            updateResizerViews()
         default:
             break
         }
@@ -245,12 +245,17 @@ class RectangleView: UIView {
         bottomLeftCornerView.center.y = bounds.maxY
         bottomRightCornerView.center.x = bounds.maxX
         bottomRightCornerView.center.y = bounds.maxY
-        topExtensionView.frame.size.width = bounds.width > 20 ? bounds.width - 20 : 0
-        leftExtensionView.frame.size.height = bounds.height > 20 ? bounds.height - 20 : 0
+//        topExtensionView.frame.size.width = bounds.width > 20 ? bounds.width - 20 : 0
+//        leftExtensionView.frame.size.height = bounds.height > 20 ? bounds.height - 20 : 0
         rightExtensionView.center.x = bounds.maxX
-        rightExtensionView.frame.size.height = bounds.height > 20 ? bounds.height - 20 : 0
+//        rightExtensionView.frame.size.height = bounds.height > 20 ? bounds.height - 20 : 0
         bottomExtensionView.center.y = bounds.maxY
-        bottomExtensionView.frame.size.width = bounds.width > 20 ? bounds.width - 20 : 0
+//        bottomExtensionView.frame.size.width = bounds.width > 20 ? bounds.width - 20 : 0
+
+        topExtensionView.frame.size.width = bounds.width > 2 * (10 / transform.a) ? bounds.width - 2 * (10 / transform.a) : 0
+        leftExtensionView.frame.size.height = bounds.height > 2 * ( 10 / transform.d) ? bounds.height - 2 * ( 10 / transform.d) : 0
+        rightExtensionView.frame.size.height = bounds.height > 2 * ( 10 / transform.d) ? bounds.height - 2 * ( 10 / transform.d) : 0
+        bottomExtensionView.frame.size.width = bounds.width > 2 * (10 / transform.a) ? bounds.width - 2 * (10 / transform.a) : 0
     }
 
     private func updateResizerVisibility() {
@@ -279,7 +284,7 @@ class RectangleView: UIView {
             rightExtensionView.transform = rightExtensionView.transform.scaledBy(x: currentWidth/(currentWidth + translation.x), y: 1.0)
         } else if horizontal == .negative {
             transform =  transform.scaledBy(x: (currentWidth - translation.x)/currentWidth, y: 1.0)
-            transform = transform.translatedBy(x: -translation.x/2, y: 0.0)
+            transform = transform.translatedBy(x: (2 * translation.x) / (currentWidth/(currentWidth - translation.x)), y: 0.0)
             topLeftCornerView.transform = topLeftCornerView.transform.scaledBy(x: currentWidth/(currentWidth - translation.x), y: 1.0)
             topRightCornerView.transform = topRightCornerView.transform.scaledBy(x: currentWidth/(currentWidth - translation.x), y: 1.0)
             bottomLeftCornerView.transform = bottomLeftCornerView.transform.scaledBy(x: currentWidth/(currentWidth - translation.x), y: 1.0)
